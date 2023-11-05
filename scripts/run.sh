@@ -1,4 +1,11 @@
 #!/bin/sh
 set -e
 
-gunicorn -b :80 --chdir ./FARMS.wsgi:application
+# Collect static files
+python manage.py collectstatic --noinput
+
+# Apply database migrations
+python manage.py migrate
+
+# Start Gunicorn
+gunicorn FARMS.wsgi:application --bind 0.0.0.0:80
