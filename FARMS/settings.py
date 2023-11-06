@@ -18,14 +18,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Initialise environment variables
 env = environ.Env()
-env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.local')
+env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.prod')
 env.read_env(str(env_file))  # read_env expects a string path
 
 # Assuming the environment variable ENV_PATH points to the correct .env file
 # For local, it could be `export ENV_PATH=.env.local`
 # For development, it could be `export ENV_PATH=.env.development`
 env.read_env(env_file)
-print(env_file)
+print("settings:28", env_file)
 
 # app/
 APPS_DIR = BASE_DIR / "app"
@@ -43,12 +43,8 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 # ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "0.0.0.0", "127.0.0.1"])
 ALLOWED_HOSTS = ['*']
 
-# CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
-CORS_ALLOWED_ORIGINS = ['*']
-
-# CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
-CSRF_TRUSTED_ORIGINS = ['*']
-
+CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
 USE_X_FORWARDED_HOST = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
