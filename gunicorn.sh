@@ -10,7 +10,7 @@ python3 manage.py makemigrations
 echo "Make Migrations done"
 python3 manage.py migrate
 echo "Migrations done"
-python3 manage.py collectstatic -- no-input
+python3 manage.py collectstatic --noinput
 echo "collectstatic done"
 
 cd /var/lib/jenkins/workspace/FARMS
