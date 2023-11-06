@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# Remove the existing virtual environment if it exists and create a new one
+# Check if the virtual environment directory exists
 if [ -d "env" ]
 then
-    echo "Python virtual environment exists. Removing and creating a new one."
-    rm -rf env
+    echo "Python virtual environment exists."
+else
+    python3 -m venv env
+    echo "Python virtual environment created."
 fi
-
-# Create a new virtual environment
-python3 -m venv env
-echo "Python virtual environment created."
 
 echo "Current directory is: $PWD"
 
@@ -18,10 +16,6 @@ source env/bin/activate
 
 # Set environment variables here
 export ENV_PATH=".env.prod"
-
-# Update system package list and install system dependencies
-sudo apt-get update
-sudo apt-get install -y libpq-dev
 
 # Install Python dependencies
 pip3 install -r requirements.txt
