@@ -6,20 +6,33 @@ sudo cp -rf app.conf /etc/nginx/sites-available/
 # Correctly setting permissions for the workspace directory
 chmod 710 /var/lib/jenkins/workspace/FARMS
 
-# Create a symlink in sites-enabled for the Nginx configuration
-# First, remove any existing symlink to avoid errors
+# Remove any existing symlink to avoid errors
 sudo rm -f /etc/nginx/sites-enabled/app.conf
+
+# Create a new symlink in sites-enabled for the Nginx configuration
 sudo ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
 
 # Test the Nginx configuration for syntax errors
-sudo nginx -t
+if sudo nginx -t; then
+    echo "Nginx configuration is ok."
 
-# Start Nginx if it's not already running, reload it to apply changes, and enable it to start on boot
-sudo systemctl start nginx
-sudo systemctl reload nginx
-sudo systemctl enable nginx
+    # Reload Nginx to apply changes if it's already running, else start it
+    if sudo systemctl is-active --quiet nginx; then
+        echo "Reloading Nginx."
+        sudo systemctl reload nginx
+    else
+        echo "Starting Nginx."
+        sudo systemctl start nginx
+    fi
 
-echo "Nginx has been started"
+    # Enable Nginx to start on boot
+    sudo systemctl enable nginx
 
-# Optionally check the status of Nginx, but note that this will cause the script to pause until you exit the status screen
-sudo systemctl status nginx
+    echo "Nginx has been configured and reloaded."
+else
+    echo "Error in Nginx configuration."
+    exit 1
+fi
+
+# Optionally, print the status of Nginx without pausing the script
+sudo systemctl status nginx --no-pager
