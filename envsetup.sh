@@ -1,13 +1,15 @@
 #!/bin/bash
 
-# Check if the virtual environment directory exists
+# Remove the existing virtual environment if it exists and create a new one
 if [ -d "env" ]
 then
-    echo "Python virtual environment exists."
-else
-    python3 -m venv env
-    echo "Python virtual environment created."
+    echo "Python virtual environment exists. Removing and creating a new one."
+    rm -rf env
 fi
+
+# Create a new virtual environment
+python3 -m venv env
+echo "Python virtual environment created."
 
 echo "Current directory is: $PWD"
 
@@ -17,10 +19,9 @@ source env/bin/activate
 # Set environment variables here
 export ENV_PATH=".env.prod"
 
-# Install system dependencies
-sudo apt-get update && sudo apt-get install -y libpq-dev gcc
-sudo rm -rf /var/lib/apt/lists/*
-sudo apt-get clean
+# Update system package list and install system dependencies
+sudo apt-get update
+sudo apt-get install -y libpq-dev
 
 # Install Python dependencies
 pip3 install -r requirements.txt
@@ -36,6 +37,7 @@ else
 fi
 
 # Set the permissions for the logs directory
+# Note: Using 777 permissions is not recommended for security reasons
 sudo chmod -R 777 logs
 
 echo "envsetup is finished."
