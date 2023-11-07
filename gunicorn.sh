@@ -2,7 +2,7 @@
 
 source env/bin/activate
 # Set environment variables here
-export ENV_PATH=".env.prod"
+export ENV_PATH='.env.prod'
 
 cd /var/lib/jenkins/workspace/FARMS/
 
