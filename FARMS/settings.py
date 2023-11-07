@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Initialise environment variables
 env = environ.Env()
-env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.local')
+env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.prod')
 env.read_env(str(env_file))  # read_env expects a string path
 
 # Assuming the environment variable ENV_PATH points to the correct .env file

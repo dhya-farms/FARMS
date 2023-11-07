@@ -4,10 +4,9 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
-User=www-data
+User=root
 Group=www-data
 WorkingDirectory=/var/lib/jenkins/workspace/FARMS/
-Environment="ENV_PATH=.env.prod"
 ExecStart=/var/lib/jenkins/workspace/FARMS/env/bin/gunicorn \
           --workers 3 \
           --log-level debug \
