@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 User=root
-Group=www-data
+Group=root
 WorkingDirectory=/var/lib/jenkins/workspace/FARMS/
 ExecStart=/var/lib/jenkins/workspace/FARMS/env/bin/gunicorn \
           --workers 3 \
