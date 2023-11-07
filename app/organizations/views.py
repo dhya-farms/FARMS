@@ -71,6 +71,9 @@ class OrganizationViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         organization = self.controller.get_instance_by_pk(pk=pk)
+        if not organization:
+            return JsonResponse({"error": "organization with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
 
         errors, organization = self.controller.edit_organization(
             organization=organization,
@@ -453,6 +456,9 @@ class PlaceViewSet(viewsets.ViewSet):
         locale = request.LANGUAGE_CODE
 
         center = self.controller.get_instance_by_pk(pk=pk)
+        if not center:
+            return JsonResponse({"error": "center with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         errors, data = self.controller.get_landings_with_center(
             center=center
         )
@@ -524,6 +530,9 @@ class ExpenseTypeViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         expense_type = self.controller.get_instance_by_pk(pk=pk)
+        if not expense_type:
+            return JsonResponse({"error": "expense type with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         user = request.user
         errors, expense_type = self.controller.edit_expense_type(
             expense_type=expense_type,

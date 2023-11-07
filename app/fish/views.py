@@ -88,6 +88,9 @@ class FishViewSet(viewsets.ViewSet):
 
         # Extract previous fish object
         fish = self.controller.get_instance_by_pk(pk=pk)
+        if not fish:
+            return JsonResponse({"error": "fish with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         user = request.user
         # Update User
         errors, fish = self.controller.edit_fish(
@@ -263,6 +266,9 @@ class FishViewSet(viewsets.ViewSet):
         locale = request.LANGUAGE_CODE
 
         fish = self.controller.get_instance_by_pk(pk=pk)
+        if not fish:
+            return JsonResponse({"error": "fish with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         errors, data = self.fish_variant_controller.get_fish_variants_with_fish(
             fish=fish
         )
@@ -419,6 +425,9 @@ class FishVariantViewSet(viewsets.ViewSet):
 
         # Get the existing fish variant
         fish_variant = self.controller.get_instance_by_pk(pk=pk)
+        if not fish_variant:
+            return JsonResponse({"error": "fish variant with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
 
         # Update Fish Variant
         errors, fish_variant = self.controller.edit_fish_variant(

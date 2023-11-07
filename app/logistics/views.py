@@ -373,6 +373,9 @@ class RecordViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         record = self.controller.get_instance_by_pk(pk=pk)
+        if not record:
+            return JsonResponse({"error": "record with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         user = request.user
         errors, record = self.controller.edit_record(
             record_obj=record,
@@ -808,6 +811,9 @@ class BillViewSet(viewsets.ViewSet):
         locale = request.LANGUAGE_CODE
 
         bill = self.controller.get_instance_by_pk(pk=pk)
+        if not bill:
+            return JsonResponse({"error": "bill with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         errors, data = self.controller.get_bill_items_with_bill(
             bill=bill
         )
@@ -886,6 +892,9 @@ class BillItemViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         bill_item = self.controller.get_instance_by_pk(pk=pk)
+        if not bill_item:
+            return JsonResponse({"error": "bill item with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
 
         errors, bill_item = self.controller.edit_bill_item(
             bill_item=bill_item,
@@ -1093,6 +1102,9 @@ class StockViewSet(viewsets.ViewSet):
             return Response(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         stock = self.controller.get_instance_by_pk(pk=pk)
+        if not stock:
+            return JsonResponse({"error": "stock with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         user = request.user
         errors, stock = self.controller.edit_stock(
             stock=stock,
@@ -1266,6 +1278,9 @@ class ExpenseViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         expense = self.controller.get_instance_by_pk(pk=pk)
+        if not expense:
+            return JsonResponse({"error": "expense with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
         user = request.user
         errors, expense = self.controller.edit_expense(
             expense=expense,

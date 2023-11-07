@@ -309,6 +309,9 @@ class UserViewSet(viewsets.ViewSet):
 
         # Extract previous user object
         user = self.controller.get_instance_by_pk(pk=pk)
+        if not user:
+            return JsonResponse({"error": "user with this id does not exists"},
+                                status=status.HTTP_404_NOT_FOUND)
 
         # Update User
         errors, user = self.controller.edit_user(
