@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Initialise environment variables
 env = environ.Env()
-env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.prod')
+env_file = BASE_DIR / "FARMS" / env.str('ENV_PATH', default='.env.local')
 env.read_env(str(env_file))  # read_env expects a string path
 
 # Assuming the environment variable ENV_PATH points to the correct .env file
@@ -37,7 +37,7 @@ APPS_DIR = BASE_DIR / "app"
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DJANGO_DEBUG", True)
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 # ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "0.0.0.0", "127.0.0.1"])
