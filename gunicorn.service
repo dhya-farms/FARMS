@@ -4,7 +4,7 @@ Requires=gunicorn.socket
 After=network.target
 
 [Service]
-User=root
+User=www-data
 Group=www-data
 WorkingDirectory=/var/lib/jenkins/workspace/FARMS/
 ExecStart=/var/lib/jenkins/workspace/FARMS/env/bin/gunicorn \
