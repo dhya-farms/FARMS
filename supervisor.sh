@@ -18,7 +18,7 @@ cd /var/lib/jenkins/workspace/FARMS
 sudo rm -f /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
 
 # Copy the new Supervisor configuration file
-sudo cp FARMS.conf /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
+sudo cp FARMS_SUPERVISOR.conf /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
 
 echo "$USER"
 echo "$PWD"
