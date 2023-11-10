@@ -5,7 +5,7 @@ sudo rm -f /etc/nginx/sites-available/FARMS.conf
 sudo rm -f /etc/nginx/sites-enabled/FARMS.conf
 
 # Copy the new Nginx configuration file
-cp FARMS.conf /etc/nginx/sites-available/FARMS.conf
+sudo cp FARMS.conf /etc/nginx/sites-available/FARMS.conf
 
 # Create a symbolic link for Nginx
 sudo ln -s /etc/nginx/sites-available/FARMS.conf /etc/nginx/sites-enabled/FARMS.conf
