@@ -1,20 +1,20 @@
-sudo apt update
-sudo apt install fontconfig openjdk-17-jre
-java -version
-
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update
-sudo apt-get install jenkins
-
-sudo systemctl daemon-reload
-sudo systemctl start jenkins
-sudo systemctl restart jenkins
-sudo systemctl enable jenkins
-sudo systemctl status jenkins
+#sudo apt update
+#sudo apt install fontconfig openjdk-17-jre
+#java -version
+#
+#sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+#  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+#echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+#  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+#  /etc/apt/sources.list.d/jenkins.list > /dev/null
+#sudo apt-get update
+#sudo apt-get install jenkins
+#
+#sudo systemctl daemon-reload
+#sudo systemctl start jenkins
+#sudo systemctl restart jenkins
+#sudo systemctl enable jenkins
+#sudo systemctl status jenkins
 
 # OS dependencies
 sudo apt-get install software-properties-common
@@ -27,16 +27,30 @@ sudo apt-get install -y gcc libpq-dev make build-essential libssl-dev zlib1g-dev
 sudo apt-get install nginx supervisor
 
 sudo systemctl daemon-reload
-sudo systemctl start nginx
-sudo systemctl restart nginx
+# For nginx
+if ! sudo systemctl is-active --quiet nginx; then
+    echo "Starting nginx..."
+    sudo systemctl start nginx
+else
+    echo "Restarting nginx..."
+    sudo systemctl restart nginx
+fi
 sudo systemctl enable nginx
+echo "Nginx status:"
 sudo systemctl status nginx
 
-
-sudo systemctl start supervisor
-sudo systemctl restart nginx
+# For supervisor
+if ! sudo systemctl is-active --quiet supervisor; then
+    echo "Starting supervisor..."
+    sudo systemctl start supervisor
+else
+    echo "Restarting supervisor..."
+    sudo systemctl restart supervisor
+fi
 sudo systemctl enable supervisor
+echo "Supervisor status:"
 sudo systemctl status supervisor
+
 
 
 
