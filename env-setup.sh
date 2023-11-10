@@ -31,3 +31,5 @@ else
 fi
 
 echo "envsetup is finished."
+
+sudo chmod -R 777 logs
