@@ -5,20 +5,20 @@ source env/bin/activate
 # Set environment variables here
 export ENV_PATH=".env.prod"
 
-sudo cd /var/lib/jenkins/workspace/FARMS/
+cd /var/lib/jenkins/workspace/FARMS/
 
 python3 manage.py migrate
 echo "Migrations done"
 python3 manage.py collectstatic --noinput
 echo "collectstatic done"
 
-sudo cd /var/lib/jenkins/workspace/FARMS
+cd /var/lib/jenkins/workspace/FARMS
 
 # Delete the old Supervisor configuration file, if it exists
 sudo rm -f /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
 
 # Copy the new Supervisor configuration file
-sudo cp FARMS.conf /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
+cp FARMS.conf /etc/supervisor/conf.d/FARMS_SUPERVISOR.conf
 
 echo "$USER"
 echo "$PWD"
