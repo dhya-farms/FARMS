@@ -25,13 +25,9 @@ if [ -d "logs" ]
 then
     echo "Log folder exists."
 else
-    mkdir logs
-    touch logs/error.log logs/access.log
+    sudo mkdir logs
+    sudo touch logs/django_server_stderr.log logs/gunicorn_stderr.log logs/nginx_access.log logs/openai_worker_stderr.log logs/django_server_stdout.log logs/gunicorn_stdout.log logs/nginx_error.log logs/openai_worker_stdout.log
     echo "Log folders created."
 fi
-
-# Set the permissions for the logs directory
-# Note: Using 777 permissions is not recommended for security reasons
-sudo chmod -R 777 logs
 
 echo "envsetup is finished."

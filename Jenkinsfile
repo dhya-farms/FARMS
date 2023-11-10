@@ -1,19 +1,35 @@
 pipeline {
     agent any
     stages {
-        stage('Setup Python Virtual ENV for dependencies') {
+        stage('Initial Setup') {
             steps {
                 sh '''
-                chmod +x envsetup.sh
-                ./envsetup.sh
+                chmod +x initial-setup.sh
+                ./initial-setup.sh
                 '''
             }
         }
-        stage('Setup Gunicorn Setup') {
+        stage('Giving Permissions') {
             steps {
                 sh '''
-                chmod +x gunicorn.sh
-                ./gunicorn.sh
+                chmod +x permission.sh
+                ./permission.sh
+                '''
+            }
+        }
+        stage('Setup Python Virtual ENV for dependencies') {
+            steps {
+                sh '''
+                chmod +x env-setup.sh
+                ./env-setup.sh
+                '''
+            }
+        }
+        stage('Setup Supervisor Setup') {
+            steps {
+                sh '''
+                chmod +x supervisor.sh
+                ./supervisor.sh
                 '''
             }
         }

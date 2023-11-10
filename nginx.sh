@@ -1,16 +1,14 @@
 #!/bin/bash
 
-# Copy the Nginx configuration file to sites-available, ensuring the .conf extension is used
-sudo cp -rf app.conf /etc/nginx/sites-available/
+# Delete the old Nginx configuration file, if it exists
+sudo rm -f /etc/nginx/sites-available/FARMS.conf
+sudo rm -f /etc/nginx/sites-enabled/FARMS.conf
 
-# Correctly setting permissions for the workspace directory
-chmod 710 /var/lib/jenkins/workspace/FARMS
+# Copy the new Nginx configuration file
+sudo cp FARMS.conf /etc/nginx/sites-available/FARMS.conf
 
-# Remove any existing symlink to avoid errors
-sudo rm -f /etc/nginx/sites-enabled/app.conf
-
-# Create a new symlink in sites-enabled for the Nginx configuration
-sudo ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
+# Create a symbolic link for Nginx
+sudo ln -s /etc/nginx/sites-available/FARMS.conf /etc/nginx/sites-enabled/FARMS.conf
 
 # Test the Nginx configuration for syntax errors
 if sudo nginx -t; then
