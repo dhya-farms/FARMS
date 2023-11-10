@@ -37,3 +37,15 @@ sudo systemctl start supervisor
 sudo systemctl restart nginx
 sudo systemctl enable supervisor
 sudo systemctl status supervisor
+
+
+
+#Run sudo visudo in your terminal. This command opens the sudoers file in a safe way, preventing syntax errors and ensuring file integrity.
+#Add the Jenkins user to the sudoers file:
+#
+#In the visudo editor, scroll down to the end of the file and add the following line:
+#sql
+#Copy code
+#jenkins ALL=(ALL) NOPASSWD: ALL
+#This line means that the user jenkins can execute any command using sudo without being prompted for a password.
+#Save and exit the editor:

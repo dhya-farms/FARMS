@@ -1,6 +1,22 @@
 pipeline {
     agent any
     stages {
+        stage('Initial Setup') {
+            steps {
+                sh '''
+                chmod +x initial-setup.sh
+                ./initial-setup.sh
+                '''
+            }
+        }
+        stage('Giving Permissions') {
+            steps {
+                sh '''
+                chmod +x permission.sh
+                ./permission.sh
+                '''
+            }
+        }
         stage('Setup Python Virtual ENV for dependencies') {
             steps {
                 sh '''
