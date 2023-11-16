@@ -9,8 +9,6 @@ from app.organizations.enums import PlaceType
 from app.utils.helpers import convert_to_decimal, allow_string_rep_of_enum
 from app.utils.schemas import BaseSchemaCreationReqSchema, BaseSchemaEditReqSchema, BaseSchemaListingReqSchema
 
-MOBILE_NO_LIMIT = 10
-
 
 def check_sales_place_type(value):
     allowed_types = {PlaceType.MARKET, PlaceType.MERCHANT, PlaceType.RETAIL}
