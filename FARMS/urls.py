@@ -22,5 +22,3 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path("api/", include("FARMS.api_router")),
 ]
-
-
