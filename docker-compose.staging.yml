@@ -12,7 +12,7 @@ services:
     expose:
       - 8000
     env_file:
-      - ./FARMS/.env.prod
+      - FARMS/.env.dev
     depends_on:
       - db
   db:
@@ -20,7 +20,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - ./FARMS/.env.prod
+      - FARMS/.env.dev
   nginx-proxy:
     container_name: nginx-proxy
     build: nginx
@@ -40,7 +40,7 @@ services:
   acme-companion:
     image: nginxproxy/acme-companion
     env_file:
-      - ./FARMS/.env.prod
+      - FARMS/.env.dev
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - certs:/etc/nginx/certs
