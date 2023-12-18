@@ -12,6 +12,9 @@ echo "Migrations done"
 python3 manage.py collectstatic --noinput
 echo "collectstatic done"
 
+# giving permission to static files
+sudo chmod 770 -R /var/lib/jenkins/workspace/FARMS/staticfiles
+
 cd /var/lib/jenkins/workspace/FARMS
 
 # Delete the old Supervisor configuration file, if it exists

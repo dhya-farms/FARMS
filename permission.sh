@@ -10,4 +10,4 @@ sudo usermod -a -G jenkins www-data
 sudo chmod 775 /var/lib/jenkins/workspace/FARMS
 sudo chmod 775 -R /var/lib/jenkins/workspace/FARMS/
 sudo chmod 770 -R /var/lib/jenkins/workspace/FARMS/app
-sudo chmod 770 -R /var/lib/jenkins/workspace/FARMS/staticfiles
+#sudo chmod 770 -R /var/lib/jenkins/workspace/FARMS/staticfiles
