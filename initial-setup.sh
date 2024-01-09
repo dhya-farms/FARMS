@@ -15,7 +15,6 @@
 #sudo systemctl restart jenkins
 #sudo systemctl enable jenkins
 #sudo systemctl status jenkins
-#sudo apt-get install nginx supervisor
 
 # OS dependencies
 sudo apt-get install software-properties-common
