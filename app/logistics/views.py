@@ -718,7 +718,7 @@ class BillViewSet(viewsets.ViewSet):
             page=page_key,
             locale=locale
         )
-        instance = cache.get(cache_key)
+        # instance = cache.get(cache_key)
         instance = None  # Remove this line to enable caching
         if instance:
             res = instance
@@ -742,7 +742,7 @@ class BillViewSet(viewsets.ViewSet):
 
             data = self.controller.serialize_queryset(page, self.serializer)
             res = data
-            cache.set(cache_key, res, timeout=Timeouts.MINUTES_10)
+            # cache.set(cache_key, res, timeout=Timeouts.MINUTES_10)
         result = paginator.get_paginated_response(res)
         return result
 
