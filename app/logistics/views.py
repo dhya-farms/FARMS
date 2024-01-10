@@ -718,7 +718,7 @@ class BillViewSet(viewsets.ViewSet):
             page=page_key,
             locale=locale
         )
-        instance = cache.get(cache_key)
+        # instance = cache.get(cache_key)
         instance = None  # Remove this line to enable caching
         if instance:
             res = instance
