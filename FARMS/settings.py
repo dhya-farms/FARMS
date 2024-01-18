@@ -246,6 +246,11 @@ CELERY_TASK_SEND_SENT_EVENT = True
 SITE_ID = 1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+
+# FARMS settings.py
+FORCE_SCRIPT_NAME = '/farms'
+
 # STATIC
 # ------------------------------------------------------------------------------
 STATIC_URL = "/farms/static/"
