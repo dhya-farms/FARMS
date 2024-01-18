@@ -248,7 +248,7 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 # STATIC
 # ------------------------------------------------------------------------------
-STATIC_URL = "/static/"
+STATIC_URL = "/farms/static/"
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
@@ -278,7 +278,7 @@ MEDIA_ROOT = str(APPS_DIR / "media")
 #     AWS_S3_CUSTOM_DOMAIN
 #     or f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 # )
-# MEDIA_URL = f"https://{aws_s3_domain}/media/"
+MEDIA_URL = "/farms/media/"
 
 SMS_SENDER = env('SMS_SENDER', default="DHYA INNOVATIONS PRIVATE LIMITED")
 TEXT_LOCAL_API_KEY = env('TEXT_LOCAL_API_KEY', default='NTQ0NjcyNTY3NjdhNjgzNDQ1NTg2NzUxNzU1MzY3NTE=')
