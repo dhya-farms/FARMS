@@ -33,27 +33,27 @@ sudo supervisorctl update
 sudo systemctl daemon-reload
 
 # Check the status of the gunicorn process
-status=$(sudo supervisorctl -c /etc/supervisor/supervisord.conf status gunicorn | awk '{print $2}')
+status=$(sudo supervisorctl -c /etc/supervisor/supervisord.conf status farms_gunicorn | awk '{print $2}')
 
 # If gunicorn is running, restart it; otherwise, start it
 if [ "$status" = "RUNNING" ]; then
     echo "Gunicorn is running. Restarting..."
-    sudo supervisorctl -c /etc/supervisor/supervisord.conf restart gunicorn
+    sudo supervisorctl -c /etc/supervisor/supervisord.conf restart farms_gunicorn
 else
     echo "Gunicorn is not running. Starting..."
-    sudo supervisorctl -c /etc/supervisor/supervisord.conf start gunicorn
+    sudo supervisorctl -c /etc/supervisor/supervisord.conf start farms_gunicorn
 fi
 
 # Check the status of the celery_worker process
-status=$(sudo supervisorctl -c /etc/supervisor/supervisord.conf status celery_worker | awk '{print $2}')
+status=$(sudo supervisorctl -c /etc/supervisor/supervisord.conf status farms_celery_worker | awk '{print $2}')
 
 # If celery_worker is running, restart it; otherwise, start it
 if [ "$status" = "RUNNING" ]; then
     echo "celery_worker is running. Restarting..."
-    sudo supervisorctl -c /etc/supervisor/supervisord.conf restart celery_worker
+    sudo supervisorctl -c /etc/supervisor/supervisord.conf restart farms_celery_worker
 else
     echo "celery_worker is not running. Starting..."
-    sudo supervisorctl -c /etc/supervisor/supervisord.conf start celery_worker
+    sudo supervisorctl -c /etc/supervisor/supervisord.conf start farms_celery_worker
 fi
 
 #sudo supervisorctl start gunicorn
@@ -61,5 +61,5 @@ fi
 #sudo supervisorctl start celery_worker
 #echo "Celery Worker restarted."
 
-sudo supervisorctl status gunicorn
-sudo supervisorctl status celery_worker
+sudo supervisorctl status farms_gunicorn
+sudo supervisorctl status farms_celery_worker
