@@ -45,6 +45,8 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["http://3.127.135.9"])
+CORS_ORIGIN_ALLOW_ALL = True
+
 USE_X_FORWARDED_HOST = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -72,7 +74,8 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     "django_celery_beat",
     "django_celery_results",
-    "drf_spectacular"
+    "drf_spectacular",
+    "corsheaders",
 ]
 
 LOCAL_APPS = [
@@ -91,6 +94,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
