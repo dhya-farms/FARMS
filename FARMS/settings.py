@@ -42,10 +42,35 @@ DEBUG = env.bool("DJANGO_DEBUG", True)
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 # ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["localhost", "0.0.0.0", "127.0.0.1"])
 ALLOWED_HOSTS = ['*']
-
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["http://3.127.135.9"])
+
+## CORS
+
+# CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
 CORS_ORIGIN_ALLOW_ALL = True
+# For development
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+CORS_ALLOW_CREDENTIALS = True
+
 
 USE_X_FORWARDED_HOST = True
 
