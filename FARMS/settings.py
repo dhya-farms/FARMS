@@ -47,11 +47,13 @@ CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["http://3.127.1
 
 ## CORS
 # Assuming you have an environment variable system in place
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8081",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8081",
+#     "http://localhost:3000",
+#     "http://127.0.0.1:3000",
+#     "localhost:8081"
+# ]
+CORS_ALLOWED_ORIGINS = ['*']
 
 # If your frontend and backend are served over HTTPS in production, add those origins here as well.
 
@@ -82,7 +84,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 # CORS_ORIGIN_ALLOW_ALL = True
 # For development
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 USE_X_FORWARDED_HOST = True
@@ -223,9 +225,9 @@ AUTH_USER_MODEL = 'users.User'
 
 # Rest Framework Authentication
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ),
     'DEFAULT_PAGINATION_CLASS': (
         'rest_framework.pagination.PageNumberPagination',
     ),
