@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from corsheaders.defaults import default_headers
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,11 +46,16 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=["http://3.127.135.9"])
 
 ## CORS
+# Assuming you have an environment variable system in place
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8081",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
-# CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=["localhost:3000", "0.0.0.0:3000", "127.0.0.1:3000"])
-# CORS_ORIGIN_ALLOW_ALL = True
-# For development
-CORS_ALLOW_ALL_ORIGINS = True
+# If your frontend and backend are served over HTTPS in production, add those origins here as well.
+
+## CORS Method Configuration
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
@@ -58,18 +64,25 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
-CORS_ALLOW_HEADERS = [
-    "accept",
-    "accept-encoding",
-    "authorization",
-    "content-type",
-    "dnt",
-    "origin",
-    "user-agent",
+
+## CORS Headers Configuration
+CORS_ALLOW_HEADERS = list(default_headers) + [
     "x-csrftoken",
-    "x-requested-with",
 ]
-# CORS_ALLOW_CREDENTIALS = True
+
+## Credentials Configuration
+# Uncomment the following line if your requests include credentials like cookies, authorization headers or TLS client certificates.
+CORS_ALLOW_CREDENTIALS = True
+
+## Additional Configuration Notes:
+# 1. CORS_ORIGIN_ALLOW_ALL and CORS_ALLOW_ALL_ORIGINS are commented out because it's more secure to specify allowed origins explicitly.
+# 2. If CORS_ALLOW_CREDENTIALS is True, do not use the wildcard '*' in CORS_ALLOWED_ORIGINS.
+# 3. Ensure your frontend is sending requests to the backend using the origins listed in CORS_ALLOWED_ORIGINS.
+# 4. For production, ensure you're also considering the HTTPS scheme in your CORS_ALLOWED_ORIGINS.
+
+# CORS_ORIGIN_ALLOW_ALL = True
+# For development
+# CORS_ALLOW_ALL_ORIGINS = True
 
 
 USE_X_FORWARDED_HOST = True
