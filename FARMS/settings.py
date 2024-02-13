@@ -72,7 +72,7 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 ## Credentials Configuration
 # Uncomment the following line if your requests include credentials like cookies, authorization headers or TLS client certificates.
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 ## Additional Configuration Notes:
 # 1. CORS_ORIGIN_ALLOW_ALL and CORS_ALLOW_ALL_ORIGINS are commented out because it's more secure to specify allowed origins explicitly.
