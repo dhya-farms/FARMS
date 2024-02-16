@@ -40,8 +40,8 @@ class Record(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"id: {self.id}. user: {self.user.name} from: {self.import_from.name} to: {self.export_to.name}" \
-               f" applied discount: {self.discount.name} fish variant: {self.fish_variant} is_sp: {self.is_SP} " \
+        return f"id: {self.id}. user: {self.user.name if self.user else ''} from: {self.import_from.name if self.import_from else ''} to: {self.export_to.name if self.export_to else ''}" \
+               f" applied discount: {self.discount.name if self.discount else ''} fish variant: {self.fish_variant.name if self.fish_variant else ''} is_sp: {self.is_SP} " \
                f"weight: {self.weight} weight unit: {self.weight_unit}"
 
 
