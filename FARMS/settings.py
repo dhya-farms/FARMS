@@ -216,7 +216,7 @@ REST_FRAMEWORK = {
         'rest_framework.pagination.PageNumberPagination',
     ),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "PAGE_SIZE": 20,
+    "PAGE_SIZE": 5,
 }
 
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
