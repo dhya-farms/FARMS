@@ -102,9 +102,9 @@ class RecordController(Controller):
         except Exception as e:
             return get_serialized_exception(e)
 
-    def make_inactive(self, pk):
+    def make_inactive(self, obj):
         try:
-            record = self.model.objects.get(pk=pk)
+            record = self.model.objects.get(pk=obj.pk)
             record.is_active = False
             record.save()
         except self.model.DoesNotExist as e:
