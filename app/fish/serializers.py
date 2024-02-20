@@ -26,7 +26,6 @@ class FishVariantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FishVariant
-        fields = '__all__'
         exclude = ('fish', )
 
 
