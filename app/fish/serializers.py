@@ -17,7 +17,6 @@ class FishSerializer(serializers.ModelSerializer):
 
 
 class FishVariantSerializer(serializers.ModelSerializer):
-    fish = FishSerializer()
     weight_unit = serializers.SerializerMethodField()
 
     def get_weight_unit(self, obj: FishVariant):
@@ -28,6 +27,7 @@ class FishVariantSerializer(serializers.ModelSerializer):
     class Meta:
         model = FishVariant
         fields = '__all__'
+        exclude = ('fish', )
 
 
 class DiscountSerializer(serializers.ModelSerializer):
