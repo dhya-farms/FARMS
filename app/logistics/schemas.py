@@ -17,6 +17,7 @@ class RecordCreationReqSchema(BaseSchemaCreationReqSchema):
     export_to_id: Optional[int]
     record_type: Optional[RecordType]
     discount_id: Optional[int]
+    fish_id: Optional[int]
     fish_variant_id: Optional[int]
     weigh_place_id: Optional[int]
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
@@ -37,6 +38,7 @@ class RecordEditReqSchema(BaseSchemaEditReqSchema):
     export_to_id: Optional[int]
     record_type: Optional[RecordType]
     discount_id: Optional[int]
+    fish_id: Optional[int]
     fish_variant_id: Optional[int]
     weigh_place_id: Optional[int]
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
@@ -57,6 +59,7 @@ class RecordListingReqSchema(BaseSchemaListingReqSchema):
     export_to_id: Optional[int]
     record_type: Optional[RecordType]
     discount_id: Optional[int]
+    fish_id: Optional[int]
     fish_variant_id: Optional[int]
     weigh_place_id: Optional[int]
     is_SP: Optional[bool]
@@ -69,7 +72,8 @@ class BillItemCreationReqSchema(BaseSchemaCreationReqSchema):
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
     weight_unit: WeightUnit = WeightUnit.KILOGRAMS
     price: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
-    fish_variant_id: int
+    fish_id: int
+    fish_variant_id: Optional[int]
     is_SP: bool = False
 
     _validate_decimal = validator('price', 'weight',
@@ -82,7 +86,8 @@ class BillItemEditReqSchema(BaseSchemaEditReqSchema):
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
     weight_unit: WeightUnit = WeightUnit.KILOGRAMS
     price: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
-    fish_variant_id: int
+    fish_id: int
+    fish_variant_id: Optional[int]
     is_SP: bool
 
     _validate_decimal = validator('price', 'weight',
@@ -92,6 +97,7 @@ class BillItemEditReqSchema(BaseSchemaEditReqSchema):
 
 class BillItemListingReqSchema(BaseSchemaListingReqSchema):
     bill_id: Optional[int]
+    fish_id: Optional[int]
     fish_variant_id: Optional[int]
     is_SP: Optional[bool]
 
@@ -142,7 +148,8 @@ class BillListingReqSchema(BaseSchemaListingReqSchema):
 
 class StockCreationReqSchema(BaseModel):
     place_id: Optional[int]
-    fish_variant_id: int
+    fish_id: int
+    fish_variant_id: Optional[int]
     is_SP: bool = False
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
     weight_unit: WeightUnit = WeightUnit.KILOGRAMS
@@ -154,7 +161,8 @@ class StockCreationReqSchema(BaseModel):
 
 class StockEditReqSchema(BaseModel):
     place_id: Optional[int]
-    fish_variant_id: int
+    fish_id: int
+    fish_variant_id: Optional[int]
     is_SP: bool
     weight: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
     weight_unit: WeightUnit = WeightUnit.KILOGRAMS
@@ -167,6 +175,7 @@ class StockEditReqSchema(BaseModel):
 class StockListingReqSchema(BaseSchemaListingReqSchema):
     organization_id: Optional[int]
     place_id: Optional[int]
+    fish_id: Optional[int]
     fish_variant_id: Optional[int]
     is_SP: Optional[bool]
 

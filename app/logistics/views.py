@@ -40,6 +40,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 2,
                 "record_type": 1,
                 "discount_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "weigh_place_id": 3,
                 "weight": 10.5,
@@ -61,6 +62,7 @@ class RecordViewSet(viewsets.ViewSet):
             export_to_id=data.export_to_id,
             record_type=data.record_type,
             discount_id=data.discount_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             weigh_place_id=data.weigh_place_id,
             weight=data.weight,
@@ -87,6 +89,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 2,
                 "record_type": 1,
                 "discount_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "weigh_place_id": 3,
                 "weight": 10.5,
@@ -111,6 +114,7 @@ class RecordViewSet(viewsets.ViewSet):
                     export_to_id=user.place.id,
                     record_type=RecordType.IMPORT,
                     discount_id=data.discount_id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     weigh_place_id=user.place.id,
                     weight=data.weight,
@@ -128,6 +132,7 @@ class RecordViewSet(viewsets.ViewSet):
                         export_to_id=data.export_to_id,
                         record_type=RecordType.EXPORT,
                         discount_id=data.discount_id,
+                        fish_id=data.fish_id,
                         fish_variant_id=data.fish_variant_id,
                         weigh_place_id=user.place.id,
                         weight=data.weight,
@@ -146,6 +151,7 @@ class RecordViewSet(viewsets.ViewSet):
                 else:
                     errors, stock = self.stock_controller.update_stock_weight(
                         place_id=user.place.id,
+                        fish_id=data.fish_id,
                         fish_variant_id=data.fish_variant_id,
                         is_SP=data.is_SP,
                         weight=data.weight,
@@ -173,6 +179,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 2,
                 "record_type": 1,
                 "discount_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "weigh_place_id": 3,
                 "weight": 10.5,
@@ -197,6 +204,7 @@ class RecordViewSet(viewsets.ViewSet):
                     export_to_id=data.export_to_id,
                     record_type=RecordType.EXPORT,
                     discount_id=data.discount_id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     weigh_place_id=user.place.id,
                     weight=data.weight,
@@ -208,6 +216,7 @@ class RecordViewSet(viewsets.ViewSet):
                     return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
                 errors, stock = self.stock_controller.update_stock_weight(
                     place_id=user.place.id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     is_SP=data.is_SP,
                     weight=-abs(data.weight),
@@ -235,6 +244,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 2,
                 "record_type": 1,
                 "discount_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "weigh_place_id": 3,
                 "weight": 10.5,
@@ -259,6 +269,7 @@ class RecordViewSet(viewsets.ViewSet):
                     export_to_id=data.export_to_id,
                     record_type=RecordType.EXPORT,
                     discount_id=data.discount_id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     weigh_place_id=user.place.id,
                     weight=data.weight,
@@ -270,6 +281,7 @@ class RecordViewSet(viewsets.ViewSet):
                     return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
                 errors, stock = self.stock_controller.update_stock_weight(
                     place_id=user.place.id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     is_SP=data.is_SP,
                     weight=-abs(data.weight),
@@ -297,6 +309,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 2,
                 "record_type": 1,
                 "discount_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "weigh_place_id": 3,
                 "weight": 10.5,
@@ -321,6 +334,7 @@ class RecordViewSet(viewsets.ViewSet):
                     export_to_id=user.place.id,
                     record_type=RecordType.IMPORT,
                     discount_id=data.discount_id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     weigh_place_id=user.place.id,
                     weight=data.weight,
@@ -332,6 +346,7 @@ class RecordViewSet(viewsets.ViewSet):
                     return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
                 errors, stock = self.stock_controller.update_stock_weight(
                     place_id=user.place.id,
+                    fish_id=data.fish_id,
                     fish_variant_id=data.fish_variant_id,
                     is_SP=data.is_SP,
                     weight=data.weight,
@@ -358,6 +373,7 @@ class RecordViewSet(viewsets.ViewSet):
                 "export_to_id": 4,
                 "record_type": 1,
                 "discount_id": 2,
+                "fish_id": 1,
                 "fish_variant_id": 2,
                 "weigh_place_id": 5,
                 "weight": 15.0,
@@ -385,6 +401,7 @@ class RecordViewSet(viewsets.ViewSet):
             export_to_id=data.export_to_id,
             record_type=data.record_type,
             discount_id=data.discount_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             weigh_place_id=data.weigh_place_id,
             weight=data.weight,
@@ -422,10 +439,6 @@ class RecordViewSet(viewsets.ViewSet):
                              description='Fish Variant ID'),
             OpenApiParameter(name='weigh_place_id', location=OpenApiParameter.QUERY, required=False, type=int,
                              description='Weigh Place ID'),
-            OpenApiParameter(name='weight', location=OpenApiParameter.QUERY, required=False, type=str,
-                             description='Weight'),
-            OpenApiParameter(name='weight_unit', location=OpenApiParameter.QUERY, required=False, type=str,
-                             description='Weight Unit'),
             OpenApiParameter(name='is_SP', location=OpenApiParameter.QUERY, required=False, type=bool,
                              description='Is SP'),
             OpenApiParameter(name='is_active', location=OpenApiParameter.QUERY, required=False, type=bool,
@@ -453,6 +466,7 @@ class RecordViewSet(viewsets.ViewSet):
             export_to_id=data.export_to_id,
             record_type=data.record_type,
             discount_id=data.discount_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             weigh_place_id=data.weigh_place_id,
             is_SP=data.is_SP,
@@ -476,6 +490,7 @@ class RecordViewSet(viewsets.ViewSet):
                 export_to_id=data.export_to_id,
                 record_type=data.record_type,
                 discount_id=data.discount_id,
+                fish_id=data.fish_id,
                 fish_variant_id=data.fish_variant_id,
                 weigh_place_id=data.weigh_place_id,
                 is_SP=data.is_SP,
@@ -553,6 +568,7 @@ class BillViewSet(viewsets.ViewSet):
                         "weight": 10.5,
                         "weight_unit": "KG",
                         "price": 100.99,
+                        "fish_id": 1,
                         "fish_variant_id": 2,
                         "is_SP": False,
                         "is_active": True
@@ -561,6 +577,7 @@ class BillViewSet(viewsets.ViewSet):
                         "weight": 10.5,
                         "weight_unit": "KG",
                         "price": 100.99,
+                        "fish_id": 1,
                         "fish_variant_id": 2,
                         "is_SP": False,
                         "is_active": True
@@ -843,6 +860,7 @@ class BillItemViewSet(viewsets.ViewSet):
                 "weight": 10.5,
                 "weight_unit": "KG",
                 "price": 100.99,
+                "fish_id": 1,
                 "fish_variant_id": 2,
                 "is_SP": False,
                 "is_active": True
@@ -859,6 +877,7 @@ class BillItemViewSet(viewsets.ViewSet):
             weight=data.weight,
             weight_unit=data.weight_unit,
             price=data.price,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             is_active=data.is_active
@@ -880,6 +899,7 @@ class BillItemViewSet(viewsets.ViewSet):
                 "weight": 15.5,
                 "weight_unit": "KG",
                 "price": 150.99,
+                "fish_id": 1,
                 "fish_variant_id": 3,
                 "is_SP": True,
                 "is_active": True
@@ -902,6 +922,7 @@ class BillItemViewSet(viewsets.ViewSet):
             weight=data.weight,
             weight_unit=data.weight_unit,
             price=data.price,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             is_active=data.is_active
@@ -941,6 +962,7 @@ class BillItemViewSet(viewsets.ViewSet):
         cache_key = build_cache_key(
             CacheKeys.BILL_ITEM_LIST,
             bill_id=data.bill_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             is_active=data.is_active,
@@ -955,6 +977,7 @@ class BillItemViewSet(viewsets.ViewSet):
         else:
             errors, data = self.controller.filter_bill_items(
                 bill_id=data.bill_id,
+                fish_id=data.fish_id,
                 fish_variant_id=data.fish_variant_id,
                 is_SP=data.is_SP,
                 is_active=data.is_active,
@@ -1056,6 +1079,7 @@ class StockViewSet(viewsets.ViewSet):
         examples=[
             OpenApiExample('Stock Creation Request JSON', value={
                 "place_id": 1,
+                "fish_id": 1,
                 "fish_variant_id": 1,
                 "is_SP": False,
                 "weight": 10.0,
@@ -1070,6 +1094,7 @@ class StockViewSet(viewsets.ViewSet):
         user = request.user
         errors, stock = self.controller.create_stock(
             place_id=data.place_id or user.place_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             weight=data.weight,
@@ -1109,6 +1134,7 @@ class StockViewSet(viewsets.ViewSet):
         errors, stock = self.controller.edit_stock(
             stock=stock,
             place_id=data.place_id or user.place_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             weight=data.weight,
@@ -1150,6 +1176,7 @@ class StockViewSet(viewsets.ViewSet):
             CacheKeys.STOCK_LIST,
             organization_id=data.organization_id or user.organization.id,
             place_id=data.place_id,
+            fish_id=data.fish_id,
             fish_variant_id=data.fish_variant_id,
             is_SP=data.is_SP,
             ordering=data.ordering,
@@ -1164,6 +1191,7 @@ class StockViewSet(viewsets.ViewSet):
             errors, data = self.controller.filter_stocks(
                 organization_id=data.organization_id or user.organization.id,
                 place_id=data.place_id,
+                fish_id=data.fish_id,
                 fish_variant_id=data.fish_variant_id,
                 is_SP=data.is_SP,
                 ordering=data.ordering,

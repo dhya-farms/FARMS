@@ -14,8 +14,8 @@ from app.utils.helpers import get_serialized_exception
 class RecordController(Controller):
     model = Record
 
-    def create_record(self, organization_id, user_id, import_from_id, export_to_id, record_type, discount_id, fish_variant_id,
-                      weigh_place_id, weight, weight_unit, is_SP, is_active):
+    def create_record(self, organization_id, user_id, import_from_id, export_to_id, record_type, discount_id, fish_id,
+                      fish_variant_id, weigh_place_id, weight, weight_unit, is_SP, is_active):
         try:
             record = self.model.objects.create(
                 organization_id=organization_id,
@@ -24,6 +24,7 @@ class RecordController(Controller):
                 export_to_id=export_to_id,
                 record_type=record_type,
                 discount_id=discount_id,
+                fish_id=fish_id,
                 fish_variant_id=fish_variant_id,
                 weigh_place_id=weigh_place_id,
                 weight=weight,
@@ -36,7 +37,7 @@ class RecordController(Controller):
             return get_serialized_exception(e)
 
     def edit_record(self, record_obj, organization_id, user_id, import_from_id, export_to_id, record_type, discount_id,
-                    fish_variant_id, weigh_place_id, weight, weight_unit, is_SP, is_active):
+                    fish_id, fish_variant_id, weigh_place_id, weight, weight_unit, is_SP, is_active):
         try:
             record_obj.organization_id = organization_id
             record_obj.user_id = user_id
@@ -44,6 +45,7 @@ class RecordController(Controller):
             record_obj.export_to_id = export_to_id
             record_obj.record_type = record_type
             record_obj.discount_id = discount_id
+            record_obj.fish_id = fish_id
             record_obj.fish_variant_id = fish_variant_id
             record_obj.weigh_place_id = weigh_place_id
             record_obj.weight = weight
@@ -63,6 +65,7 @@ class RecordController(Controller):
                        export_to_id,
                        record_type,
                        discount_id,
+                       fish_id,
                        fish_variant_id,
                        weigh_place_id,
                        is_SP,
@@ -84,6 +87,8 @@ class RecordController(Controller):
                 record_qs = record_qs.filter(record_type=record_type)
             if discount_id:
                 record_qs = record_qs.filter(discount_id=discount_id)
+            if fish_id:
+                record_qs = record_qs.filter(fish_id=fish_id)
             if fish_variant_id:
                 record_qs = record_qs.filter(fish_variant_id=fish_variant_id)
             if weigh_place_id:
@@ -242,6 +247,7 @@ class BillItemController(Controller):
                          weight,
                          weight_unit,
                          price,
+                         fish_id,
                          fish_variant_id,
                          is_SP,
                          is_active):
@@ -251,6 +257,7 @@ class BillItemController(Controller):
                 weight=weight,
                 weight_unit=weight_unit,
                 price=price,
+                fish_id=fish_id,
                 fish_variant_id=fish_variant_id,
                 is_SP=is_SP,
                 is_active=is_active
@@ -288,6 +295,7 @@ class BillItemController(Controller):
                        weight,
                        weight_unit,
                        price,
+                       fish_id,
                        fish_variant_id,
                        is_SP,
                        is_active):
@@ -296,6 +304,7 @@ class BillItemController(Controller):
             bill_item.weight = weight
             bill_item.weight_unit = weight_unit
             bill_item.price = price
+            bill_item.fish_id = fish_id
             bill_item.fish_variant_id = fish_variant_id
             bill_item.is_SP = is_SP
             bill_item.is_active = is_active
@@ -307,6 +316,7 @@ class BillItemController(Controller):
 
     def filter_bill_items(self,
                           bill_id,
+                          fish_id,
                           fish_variant_id,
                           is_SP,
                           is_active,
@@ -315,6 +325,8 @@ class BillItemController(Controller):
         try:
             if bill_id:
                 bill_item_qs = bill_item_qs.filter(bill_id=bill_id)
+            if fish_id:
+                bill_item_qs = bill_item_qs.filter(fish_id=fish_id)
             if fish_variant_id:
                 bill_item_qs = bill_item_qs.filter(fish_variant_id=fish_variant_id)
             if is_SP is not None:
@@ -340,6 +352,7 @@ class StockController(Controller):
 
     def create_stock(self,
                      place_id,
+                     fish_id,
                      fish_variant_id,
                      is_SP,
                      weight,
@@ -347,6 +360,7 @@ class StockController(Controller):
         try:
             stock = self.model.objects.create(
                 place_id=place_id,
+                fish_id=fish_id,
                 fish_variant_id=fish_variant_id,
                 is_SP=is_SP,
                 weight=weight,
@@ -358,6 +372,7 @@ class StockController(Controller):
 
     def update_stock_weight(self,
                             place_id,
+                            fish_id,
                             fish_variant_id,
                             is_SP,
                             weight,
@@ -365,6 +380,7 @@ class StockController(Controller):
         try:
             stock, created = self.model.objects.get_or_create(
                 place_id=place_id,
+                fish_id=fish_id,
                 fish_variant_id=fish_variant_id,
                 is_SP=is_SP,
                 weight_unit=weight_unit,
@@ -375,6 +391,7 @@ class StockController(Controller):
                 # Update the weight if the object was retrieved, not created
                 self.model.objects.filter(
                     place_id=place_id,
+                    fish_id=fish_id,
                     fish_variant_id=fish_variant_id,
                     is_SP=is_SP,
                     weight_unit=weight_unit
@@ -386,12 +403,14 @@ class StockController(Controller):
     def edit_stock(self,
                    stock,
                    place_id,
+                   fish_id,
                    fish_variant_id,
                    is_SP,
                    weight,
                    weight_unit):
         try:
             stock.place_id = place_id
+            stock.fish_id = fish_id
             stock.fish_variant_id = fish_variant_id
             stock.is_SP = is_SP
             stock.weight = weight
@@ -405,6 +424,7 @@ class StockController(Controller):
     def filter_stocks(self,
                       organization_id,
                       place_id,
+                      fish_id,
                       fish_variant_id,
                       is_SP,
                       ordering):
@@ -416,6 +436,9 @@ class StockController(Controller):
 
             if place_id:
                 stock_qs = stock_qs.filter(place_id=place_id)
+
+            if fish_id:
+                stock_qs = stock_qs.filter(fish_id=fish_id)
 
             if fish_variant_id:
                 stock_qs = stock_qs.filter(fish_variant_id=fish_variant_id)

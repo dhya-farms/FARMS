@@ -17,6 +17,9 @@ class Record(models.Model):
     record_type = models.IntegerField(choices=RecordType.choices)
     discount = models.ForeignKey('fish.Discount', on_delete=models.SET_NULL,
                                  blank=True, null=True, related_name='records')
+    fish = models.ForeignKey('fish.Fish', on_delete=models.SET_NULL,
+                             blank=True, null=True, related_name='records')
+
     fish_variant = models.ForeignKey('fish.FishVariant', on_delete=models.SET_NULL,
                                      blank=True, null=True, related_name='records')
     weigh_place = models.ForeignKey('organizations.Place', on_delete=models.SET_NULL,
@@ -111,6 +114,8 @@ class BillItem(models.Model):
             validators.MinValueValidator(0.0)  # Ensure the price is non-negative
         ]
     )
+    fish = models.ForeignKey('fish.Fish', on_delete=models.SET_NULL,
+                             blank=True, null=True, related_name='bill_items')
     fish_variant = models.ForeignKey('fish.FishVariant', on_delete=models.SET_NULL,
                                      blank=True, null=True, related_name='bill_items')
     is_SP = models.BooleanField(default=False, help_text="Whether this import/export is damaged")
@@ -125,6 +130,8 @@ class Stock(models.Model):
     place = models.ForeignKey('organizations.Place',
                               limit_choices_to={'type__in': [PlaceType.CENTER.value, PlaceType.RETAIL.value]},
                               on_delete=models.SET_NULL, related_name="stocks", blank=True, null=True)
+    fish = models.ForeignKey('fish.Fish', on_delete=models.SET_NULL,
+                             blank=True, null=True, related_name='stocks')
     fish_variant = models.ForeignKey('fish.FishVariant', on_delete=models.SET_NULL,
                                      blank=True, null=True, related_name='stocks')
     is_SP = models.BooleanField(default=False, help_text="Whether this import/export is damaged")
