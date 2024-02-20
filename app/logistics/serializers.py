@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from app.fish.enums import WeightUnit
 from app.fish.models import Fish, FishVariant, Discount, PriceHistory
-from app.fish.serializers import DiscountSerializer, FishVariantSerializer
+from app.fish.serializers import DiscountSerializer, FishVariantSerializer, FishSerializer
 from app.logistics.enums import PayType, RecordType
 from app.logistics.models import Record, BillItem, Bill, Stock, Expense
 from app.organizations.enums import PlaceType
@@ -17,6 +17,7 @@ class RecordSerializer(serializers.ModelSerializer):
     export_to = PlaceSerializer()
     record_type = serializers.SerializerMethodField()
     discount = DiscountSerializer()
+    fish = FishSerializer()
     fish_variant = FishVariantSerializer()
     weigh_place = PlaceSerializer()
     weight_unit = serializers.SerializerMethodField()
@@ -54,6 +55,7 @@ class BillSerializer(serializers.ModelSerializer):
 
 class BillItemSerializer(serializers.ModelSerializer):
     bill = BillSerializer()
+    fish = FishSerializer()
     fish_variant = FishVariantSerializer()
     weight_unit = serializers.SerializerMethodField()
 
@@ -69,6 +71,7 @@ class BillItemSerializer(serializers.ModelSerializer):
 
 class StockSerializer(serializers.ModelSerializer):
     place = PlaceSerializer()
+    fish = FishSerializer()
     fish_variant = FishVariantSerializer()
     weight_unit = serializers.SerializerMethodField()
 
