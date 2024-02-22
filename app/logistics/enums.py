@@ -5,7 +5,7 @@ from django.db import models
 @unique
 class PayType(models.IntegerChoices):
     CASH = 1, 'Cash'
-    ONLINE = 2, 'Online'
+    ONLINE = 2, 'GPay'
 
 
 @unique
