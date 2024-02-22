@@ -1,3 +1,5 @@
+from _decimal import Decimal
+from django.db import models
 from rest_framework import serializers
 
 from app.fish.enums import WeightUnit
@@ -42,6 +44,12 @@ class BillSerializer(serializers.ModelSerializer):
     bill_place = PlaceSerializer()
     discount = DiscountSerializer()
     pay_type = serializers.SerializerMethodField()
+    weight = serializers.SerializerMethodField()
+
+    def get_weight(self, obj: Bill):
+        total_weight = obj.bill_items.aggregate(total=models.Sum('weight'))['total'] or Decimal('0.00')
+        # Return the total weight as a string formatted to two decimal places
+        return f"{total_weight:.2f}"
 
     def get_pay_type(self, obj: Bill):
         if obj.pay_type:
