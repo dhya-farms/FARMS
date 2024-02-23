@@ -626,7 +626,7 @@ class BillViewSet(viewsets.ViewSet):
                 for item in data.bill_items:
                     errors, stock = self.stock_controller.update_stock_weight(
                         place_id=data.bill_place_id or user.place.id,
-                        fish_id=data.fish_id,
+                        fish_id=item.fish_id,
                         fish_variant_id=item.fish_variant_id,
                         is_SP=item.is_SP,
                         weight=-abs(item.weight),

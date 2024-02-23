@@ -275,6 +275,7 @@ class BillItemController(Controller):
                     weight=item.weight,
                     weight_unit=item.weight_unit,
                     price=item.price,
+                    fish_id=item.fish_id,
                     fish_variant_id=item.fish_variant_id,
                     is_SP=item.is_SP,
                     is_active=item.is_active
