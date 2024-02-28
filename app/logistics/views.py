@@ -1369,6 +1369,7 @@ class ExpenseViewSet(viewsets.ViewSet):
             start_time=data.start_time,
             end_time=data.end_time,
             ordering=data.ordering,
+            is_active=data.is_active,
             page=page_key,
             locale=locale,
         )
@@ -1385,6 +1386,7 @@ class ExpenseViewSet(viewsets.ViewSet):
                 start_time=data.get_start_time(),
                 end_time=data.get_end_time(),
                 ordering=data.ordering,
+                is_active=data.is_active
             )
             if errors:
                 return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)

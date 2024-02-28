@@ -497,7 +497,8 @@ class ExpenseController(Controller):
                         desc,
                         start_time,
                         end_time,
-                        ordering
+                        ordering,
+                        is_active
                         ):
         expense_qs = self.get_valid_expenses()
 
@@ -517,6 +518,8 @@ class ExpenseController(Controller):
                 expense_qs = expense_qs.order_by(ordering)
             else:
                 expense_qs = expense_qs.order_by('-expense_date', 'amount')
+            if is_active:
+                expense_qs = expense_qs.filter(is_active=is_active)
 
             return None, expense_qs
         except Exception as e:
