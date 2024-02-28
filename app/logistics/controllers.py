@@ -463,11 +463,12 @@ class ExpenseController(Controller):
     def __init__(self):
         self.model = Expense
 
-    def create_expense(self, organization_id, user_id, type_id, desc, amount):
+    def create_expense(self, organization_id, user_id, expense_date, type_id, desc, amount):
         try:
             expense = self.model.objects.create(
                 organization_id=organization_id,
                 user_id=user_id,
+                expense_date=expense_date,
                 type_id=type_id,
                 desc=desc,
                 amount=amount
@@ -476,10 +477,11 @@ class ExpenseController(Controller):
         except IntegrityError as e:
             return get_serialized_exception(e)
 
-    def edit_expense(self, expense, organization_id, user_id, type_id, desc, amount):
+    def edit_expense(self, expense, organization_id, user_id, expense_date, type_id, desc, amount):
         try:
             expense.organization_id = organization_id
             expense.user_id = user_id
+            expense.expense_date = expense_date
             expense.type_id = type_id
             expense.desc = desc
             expense.amount = amount
@@ -509,12 +511,12 @@ class ExpenseController(Controller):
             if desc:
                 expense_qs = expense_qs.filter(desc__icontains=desc)
             if start_time and end_time:
-                expense_qs = expense_qs.filter(created_at__range=(start_time, end_time))
+                expense_qs = expense_qs.filter(expense_date__range=(start_time, end_time))
 
             if ordering:
                 expense_qs = expense_qs.order_by(ordering)
             else:
-                expense_qs = expense_qs.order_by('-created_at', 'amount')
+                expense_qs = expense_qs.order_by('-expense_date', 'amount')
 
             return None, expense_qs
         except Exception as e:

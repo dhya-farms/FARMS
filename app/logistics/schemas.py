@@ -183,9 +183,19 @@ class StockListingReqSchema(BaseSchemaListingReqSchema):
 class ExpenseCreationReqSchema(BaseModel):
     organization_id: Optional[int]
     user_id: Optional[int]
+    expense_date: Optional[datetime]
     type_id: int
     desc: Optional[str]
     amount: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
+
+    @validator('expense_date', pre=True, allow_reuse=True)
+    def validate_time(cls, v):
+        if v:
+            try:
+                return datetime.strptime(v, '%Y-%m-%dT%H:%M:%SZ')
+            except ValueError as e:
+                raise ValueError(f"time format is incorrect: {e}")
+        return v
 
     _validate_amount = validator('amount',
                                  allow_reuse=True,
@@ -195,9 +205,19 @@ class ExpenseCreationReqSchema(BaseModel):
 class ExpenseEditReqSchema(BaseModel):
     organization_id: Optional[int]
     user_id: Optional[int]
+    expense_date: Optional[datetime]
     type_id: int
     desc: Optional[str]
     amount: condecimal(max_digits=10, decimal_places=2, ge=Decimal(0))
+
+    @validator('expense_date', pre=True, allow_reuse=True)
+    def validate_time(cls, v):
+        if v:
+            try:
+                return datetime.strptime(v, '%Y-%m-%dT%H:%M:%SZ')
+            except ValueError as e:
+                raise ValueError(f"time format is incorrect: {e}")
+        return v
 
     _validate_amount = validator('amount',
                                  allow_reuse=True,

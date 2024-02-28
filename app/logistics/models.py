@@ -156,6 +156,7 @@ class Expense(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.SET_NULL,
                              limit_choices_to={'designation': Designation.BILLER.value},
                              blank=True, null=True, related_name='expenses')
+    expense_date = models.DateTimeField(blank=True, null=True)
     type = models.ForeignKey('organizations.ExpenseType', on_delete=models.SET_NULL, blank=True, null=True,
                              related_name='expenses')
     desc = models.TextField(null=True, blank=True)

@@ -19,6 +19,7 @@ from app.logistics.serializers import RecordSerializer, ExpenseSerializer, BillS
 from app.utils.authentication import IsOrganizationUser
 from app.utils.constants import Timeouts, CacheKeys
 from app.utils.helpers import get_serialized_exception, build_cache_key, qdict_to_dict
+from app.utils.pagination import CustomPageNumberPagination
 
 
 class RecordViewSet(viewsets.ViewSet):
@@ -454,7 +455,7 @@ class RecordViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -1261,6 +1262,7 @@ class ExpenseViewSet(viewsets.ViewSet):
         examples=[
             OpenApiExample('Expense Creation Request JSON', value={
                 "organization_id": 1,
+                "expense_date": "2023-11-01T16:33:34Z",
                 "user_id": 1,
                 "type_id": 1,
                 "desc": "Lunch expense",
@@ -1276,6 +1278,7 @@ class ExpenseViewSet(viewsets.ViewSet):
         errors, expense = self.controller.create_expense(
             organization_id=data.organization_id or user.organization.id,
             user_id=data.user_id or user.id,
+            expense_date=data.expense_date,
             type_id=data.type_id,
             desc=data.desc,
             amount=data.amount
@@ -1294,6 +1297,7 @@ class ExpenseViewSet(viewsets.ViewSet):
         examples=[
             OpenApiExample('Expense Edit Request JSON', value={
                 "organization_id": 1,
+                "expense_date": "2023-11-01T16:33:34Z",
                 "user_id": 1,
                 "type_id": 1,
                 "desc": "Dinner expense",
@@ -1315,6 +1319,7 @@ class ExpenseViewSet(viewsets.ViewSet):
             expense=expense,
             organization_id=data.organization_id or user.organization.id,
             user_id=data.user_id or user.id,
+            expense_date=data.expense_date,
             type_id=data.type_id,
             desc=data.desc,
             amount=data.amount
