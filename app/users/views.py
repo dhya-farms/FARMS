@@ -23,6 +23,7 @@ from app.utils.authentication import IsOrganizationAdminUser, IsOrganizationUser
 from app.utils.constants import Timeouts, CacheKeys, SMS
 from app.utils.helpers import mobile_number_validation_check, qdict_to_dict, \
     generate_random_username, build_cache_key
+from app.utils.pagination import CustomPageNumberPagination
 
 User = get_user_model()
 
@@ -367,7 +368,7 @@ class UserViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user

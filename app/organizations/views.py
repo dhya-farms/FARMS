@@ -14,6 +14,7 @@ from app.organizations.serializers import OrganizationSerializer, PlaceSerialize
 from app.utils.authentication import IsOrganizationUser
 from app.utils.constants import Timeouts, CacheKeys
 from app.utils.helpers import build_cache_key, qdict_to_dict
+from app.utils.pagination import CustomPageNumberPagination
 
 
 class OrganizationViewSet(viewsets.ViewSet):
@@ -113,7 +114,7 @@ class OrganizationViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
 
@@ -324,7 +325,7 @@ class PlaceViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -451,7 +452,7 @@ class PlaceViewSet(viewsets.ViewSet):
         """
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
 
@@ -565,7 +566,7 @@ class ExpenseTypeViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user

@@ -719,7 +719,7 @@ class BillViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -825,7 +825,7 @@ class BillViewSet(viewsets.ViewSet):
     @action(methods=['GET'], detail=True)
     def bill_items(self, request, pk, *args, **kwargs):
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
 
@@ -956,7 +956,7 @@ class BillItemViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -1169,7 +1169,7 @@ class StockViewSet(viewsets.ViewSet):
         if errors:
             return Response(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -1355,7 +1355,7 @@ class ExpenseViewSet(viewsets.ViewSet):
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user

@@ -13,6 +13,7 @@ from app.fish.serializers import DiscountSerializer, FishVariantSerializer, Fish
 from app.utils.authentication import IsOrganizationUser
 from app.utils.constants import Timeouts, CacheKeys
 from app.utils.helpers import qdict_to_dict, build_cache_key
+from app.utils.pagination import CustomPageNumberPagination
 
 
 class FishViewSet(viewsets.ViewSet):
@@ -141,7 +142,7 @@ class FishViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -261,7 +262,7 @@ class FishViewSet(viewsets.ViewSet):
     @action(methods=['GET'], detail=True)
     def fish_variants(self, request, pk, *args, **kwargs):
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
 
@@ -306,7 +307,7 @@ class FishViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
 
@@ -475,7 +476,7 @@ class FishVariantViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
@@ -696,7 +697,7 @@ class DiscountViewSet(viewsets.ViewSet):
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Paginate queryset
-        paginator = PageNumberPagination()
+        paginator = CustomPageNumberPagination()
         page_key = request.query_params.get('page')
         locale = request.LANGUAGE_CODE
         user = request.user
