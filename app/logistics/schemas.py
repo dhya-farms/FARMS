@@ -31,6 +31,10 @@ class RecordCreationReqSchema(BaseSchemaCreationReqSchema):
     _validate_record_type = validator('record_type', allow_reuse=True, pre=True)(allow_string_rep_of_enum)
 
 
+class AddToStockSchema(BaseModel):
+    items: List[RecordCreationReqSchema]
+
+
 class RecordEditReqSchema(BaseSchemaEditReqSchema):
     organization_id: Optional[int]
     user_id: Optional[int]

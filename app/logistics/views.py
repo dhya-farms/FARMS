@@ -13,7 +13,7 @@ from app.logistics.enums import RecordType
 from app.logistics.schemas import RecordCreationReqSchema, RecordEditReqSchema, RecordListingReqSchema, \
     ExpenseCreationReqSchema, ExpenseEditReqSchema, ExpenseListingReqSchema, BillListingReqSchema, BillEditReqSchema, \
     BillCreationReqSchema, BillItemCreationReqSchema, BillItemEditReqSchema, BillItemListingReqSchema, \
-    StockCreationReqSchema, StockEditReqSchema, StockListingReqSchema
+    StockCreationReqSchema, StockEditReqSchema, StockListingReqSchema, AddToStockSchema
 from app.logistics.serializers import RecordSerializer, ExpenseSerializer, BillSerializer, BillItemSerializer, \
     StockSerializer
 from app.utils.authentication import IsOrganizationUser
@@ -322,45 +322,48 @@ class RecordViewSet(viewsets.ViewSet):
     )
     @action(methods=['POST'], detail=False)
     def add_to_stock(self, request, *args, **kwargs):
-        errors, data = self.controller.parse_request(RecordCreationReqSchema, request.data)
+        errors, data_all = self.controller.parse_request(AddToStockSchema, request.data)
         if errors:
             return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
         user = request.user
         try:
-            with transaction.atomic():
-                errors, record = self.controller.create_record(
-                    organization_id=user.organization.id,
-                    user_id=user.id,
-                    import_from_id=data.import_from_id,
-                    export_to_id=user.place.id,
-                    record_type=RecordType.IMPORT,
-                    discount_id=data.discount_id,
-                    fish_id=data.fish_id,
-                    fish_variant_id=data.fish_variant_id,
-                    weigh_place_id=user.place.id,
-                    weight=data.weight,
-                    weight_unit=data.weight_unit,
-                    is_SP=data.is_SP,
-                    is_active=data.is_active
-                )
-                if errors:
-                    return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
-                errors, stock = self.stock_controller.update_stock_weight(
-                    place_id=user.place.id,
-                    fish_id=data.fish_id,
-                    fish_variant_id=data.fish_variant_id,
-                    is_SP=data.is_SP,
-                    weight=data.weight,
-                    weight_unit=data.weight_unit,
-                )
-                if errors:
-                    raise Exception(errors)
+            result = []
+            for data in data_all.items:
+                with transaction.atomic():
+                    errors, record = self.controller.create_record(
+                        organization_id=user.organization.id,
+                        user_id=user.id,
+                        import_from_id=data.import_from_id,
+                        export_to_id=user.place.id,
+                        record_type=RecordType.IMPORT,
+                        discount_id=data.discount_id,
+                        fish_id=data.fish_id,
+                        fish_variant_id=data.fish_variant_id,
+                        weigh_place_id=user.place.id,
+                        weight=data.weight,
+                        weight_unit=data.weight_unit,
+                        is_SP=data.is_SP,
+                        is_active=data.is_active
+                    )
+                    if errors:
+                        return JsonResponse(data=errors, status=status.HTTP_400_BAD_REQUEST)
+                    errors, stock = self.stock_controller.update_stock_weight(
+                        place_id=user.place.id,
+                        fish_id=data.fish_id,
+                        fish_variant_id=data.fish_variant_id,
+                        is_SP=data.is_SP,
+                        weight=data.weight,
+                        weight_unit=data.weight_unit,
+                    )
+                    if errors:
+                        raise Exception(errors)
 
-                data = {
-                    "record_id": record.pk,
-                    "stock_id": stock.pk,
-                }
-                return JsonResponse(data=data, status=status.HTTP_201_CREATED)
+                    item_result = {
+                        "record_id": record.pk,
+                        "stock_id": stock.pk,
+                    }
+                    result.append(item_result)
+            return JsonResponse(data={"result": result}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return JsonResponse(data=get_serialized_exception(e)[0], status=status.HTTP_400_BAD_REQUEST)
 

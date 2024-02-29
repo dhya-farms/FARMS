@@ -25,7 +25,7 @@ class CacheKeys(Enum):
                   "{import_from_id}:{export_to_id}:{record_type}:{discount_id}:{fish_variant_id}" \
                   ":{weigh_place_id}:{page}:{locale}"
     EXPENSE_TYPE_LIST = "expense_type_list:{organization_id}:{ordering}:{is_active}:{page}:{name}:{locale}"
-    EXPENSE_LIST = "expense_list:{organization_id}:{ordering}:{type_id}:{start_time}:{end_time}:{user_id}:{desc}:{page}:{locale}"
+    EXPENSE_LIST = "expense_list:{organization_id}:{is_active}:{ordering}:{type_id}:{start_time}:{end_time}:{user_id}:{desc}:{page}:{locale}"
     BILL_LIST = "bill_list:{organization_id}:{ordering}:{is_active}:{user_id}:{bill_place_id}:" \
                 "{start_time}:{end_time}:{discount_id}:{pay_type}:{page}:{locale}"
     BILL_ITEM_LIST = "bill_item_list:{bill_id}:{ordering}:{is_active}:{is_SP}:{fish_variant_id}:{page}:{locale}"
