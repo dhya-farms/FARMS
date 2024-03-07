@@ -50,6 +50,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8081",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://splashchemicals.in",
+    "https://www.splashchemicals.in"
 ]
 
 CORS_ALLOW_METHODS = [
